@@ -1,0 +1,53 @@
+---
+title: "Data analysis practice"
+author: "Taranjot Singh"
+date: "30/06/2020"
+output: html_document
+---
+
+# MAJOR COLLEGE ADMISSIONS ANALYSIS
+
+#### The aim of this assignment is to study how income varies across college major categories. Specifically answer: “Is there an association between college major category and income?”
+
+#### To get started, start a new R/RStudio session with a clean workspace. To do this in R, you can use the q() function to quit, then reopen R. The easiest way to do this in RStudio is to quit RStudio entirely and reopen it. After you have started a new session, run the following commands. This will load a data.frame called college for you to work with:
+
+```{r}
+college <- read.csv("https://query.data.world/s/uieteyrze67twkiujwxffsokaml44y", header=TRUE, stringsAsFactors=FALSE)
+```
+
+#### Please upload this college_major_analysis.rds file to a public GitHub repository. In question 4 of this quiz, you will share the link to this file.
+
+## Codebook
+
+#### The following code book describes the variables in the “college_major_analysis.rds” dataset:
+
+```{r}
+head(college)
+summary(college)
+```
+
+#### The first column pertaining to majors is major codes and I have ignored this the second colum is major (or name of the majors). There are 173 different university Majors in this category. I have not used this as the independent variable either. I have used major category in order to develop the univariate regression analyisis. I have enclosed a no simple histogram of median incomes of graduates in order to illustrate the distribution of graduate incomes.
+
+```{r}
+as.numeric(college$Median)
+```
+
+```{r}
+hist(college$Median, xlab="Median income ($)")
+```
+
+## Minimal preprocessing
+
+```{r}
+## make sure median is a numeric variable and major category is a factor 
+Median_income<- as.numeric(college$Median)
+Major_cat<- as.factor(college$Major_category)
+##perform univariate analysis
+fit<- lm(Median_income~Major_cat)
+summary(fit)
+```
+
+## Conclusions
+
+#### This is a simplified assessment there is a statistically significant relationship between the category of college major and the graduate income (adjusted R squared=0.5717). There are some pertinent columns in this dataset which have not been used such as the percentage of different types of jobs(low income jobs, college jobs and non-college jobs) and percentage unemployed as well as the percentage of women taking that major category which may be effected by gender paygap. so multivariable analysis may result in a different result. But it cant be completed in 15 minutes.
+
